@@ -1,5 +1,5 @@
 
-/* Requires the Docker Pipeline plugin */
+
 pipeline {
     agent any
     stages {
@@ -10,6 +10,11 @@ pipeline {
         }
 
 	 stage('test') {
+		 when {
+		    expressions {
+			    BRANCH_NAME =='dev' || BRANCH_NAME=='master'
+		    }	 
+		 }	 
             steps {
                 echo 'Testing Project'
             }
@@ -21,14 +26,14 @@ pipeline {
         }	    
    
     }
-	post{
+	post {
 	// the conditions here will execute after the build is done
 	
-	always{
+	always {
 		   //this action will happen always regardless of the result of build   
 		   echo 'Post build condition running'
 		}
-	failure{
+	failure {
 		 //this action will happen only if the build has failed 
 		  echo 'Post Action if Build Failed'
 			
