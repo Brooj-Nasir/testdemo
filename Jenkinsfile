@@ -12,11 +12,6 @@ pipeline {
 	 stage('test') {
 		  
             steps {
-		    when {
-                        expression {
-                            flag == false
-                        }
-                    }
                 echo 'Testing Project'
             }
         }
