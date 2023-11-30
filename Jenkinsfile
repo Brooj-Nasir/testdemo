@@ -1,4 +1,4 @@
-
+flag=true
 
 pipeline {
     agent any
@@ -14,7 +14,7 @@ pipeline {
             steps {
 		    when {
                         expression {
-                            BRANCH_NAME == 'dev'
+                            flag == false
                         }
                     }
                 echo 'Testing Project'
