@@ -10,12 +10,13 @@ pipeline {
         }
 
 	 stage('test') {
-		 when {
-		    expressions {
-			    BRANCH_NAME == 'dev'
-		    }	 
-		 }	 
+		  
             steps {
+		    when {
+                        expression {
+                            BRANCH_NAME == 'dev'
+                        }
+                    }
                 echo 'Testing Project'
             }
         }
