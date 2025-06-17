@@ -14,7 +14,7 @@ pipeline {
             steps {
                 echo 'Building Project'
                 echo "Building version ${env.MBL_VERSION}"
-                bat 'nvm install'
+                bat 'mvn install'
             }
         }
     }
