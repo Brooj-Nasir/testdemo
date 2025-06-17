@@ -1,20 +1,34 @@
+flag = true
+
 pipeline {
     agent any
-
-    tools {
-        maven 'Maven'
+    parameters {
+        // these are types of parameters
+        string(name: 'VERSION', defaultValue: '', description: 'version to deploy on prod')
+        choice(name: 'VERSION_CHOICE', choices: ['1.1.0', '1.2.0', '1.3.0'], description: 'Select version')
+        booleanParam(name: 'executeTests', defaultValue: true, description: 'Run tests?')
     }
 
     environment {
-        MBL_VERSION = '1.3.0'
+        // variables defined here can be used by any stage
+        NEW_VERSION = '1.3.0'
     }
 
     stages {
-        stage('Build') {
+        stage('build') {
             steps {
                 echo 'Building Project'
-                echo "Building version ${env.MBL_VERSION}"
-                bat 'mvn install'
+            }
+        }
+
+        stage('test') {
+            when {
+                expression {
+                    params.executeTests
+                }
+            }
+            steps {
+                echo 'Testing Project'
             }
         }
     }
